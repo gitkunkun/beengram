@@ -24,6 +24,12 @@
     {% for post in object_list %}
     <li class="post-list__item">
         <div class="post">
+            <div class="post__user">
+                <a href="{% url 'profile' post.user.pk %}" class="user">
+                    <img src="{{ post.user.icon_url }}">
+                    <span>{{ post.user.username }}</span>
+                </a>
+            </div>
             <div class="post__image">
                 <a href="{% url 'post_detail' post.pk %}">
                     <img src="{{ post.img.url }}">
@@ -48,12 +54,7 @@
                 <div>
                     {{ post.note }}
                 </div>
-                <div class="post__user">
-                    <a href="{% url 'profile' post.user.pk %}" class="user">
-                        <img src="{{ post.user.icon_url }}">
-                        <span>{{ post.user.username }}</span>
-                    </a>
-                </div>
+                
             </div>
             <div class="post__body">
         </div>
