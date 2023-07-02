@@ -26,7 +26,7 @@
         <div class="post">
             <div class="post__user">
                 <a href="{% url 'profile' post.user.pk %}" class="user">
-                    <img src="{{ post.user.icon_url }}">
+                    <img src="{{ post.user.icon_url }}" class = "usericon">
                     <span>{{ post.user.username }}</span>
                 </a>
             </div>
