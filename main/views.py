@@ -26,6 +26,8 @@ from .forms import (
     CommentForm,
     SignUpForm,
 )
+import PIL, os, io
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from .models import Post,Comment
 
 User = get_user_model()
