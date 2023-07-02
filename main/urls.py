@@ -33,6 +33,7 @@ urlpatterns = [
         name="delete_post",
     ),
     path("profile/<int:pk>", views.ProfileView.as_view(), name="profile"),
+
     path(
         "profile/follow-list/<int:pk>",
         views.FollowListView.as_view(),
@@ -45,4 +46,5 @@ urlpatterns = [
     ),
     path("search/", views.SearchView.as_view(), name="search"),
     path("like/<int:pk>", views.PostLikeAPIView.as_view(), name="like"),
+    path("comment/<int:pk>",views.CommentView.as_view(),name="comment"),
 ]

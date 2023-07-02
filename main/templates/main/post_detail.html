@@ -22,17 +22,43 @@
         <div class="post__like">
             <a class="like{% if post in user.like.all %} like--active{% endif %}" data-pk="{{post.pk}}"><i class="fas fa-heart"></i></a>
         </div>
+        <a href="{% url 'comment' post.pk %}" class="komennto">&#x1f4ac;</a>
         <div class="post__user">
             <a href="{% url 'profile' post.user.pk %}" class="user">
                 <img src="{{ post.user.icon_url }}">
                 <span>{{ post.user.username }}</span>
             </a>
+            
         </div>
     </div>
     <div class="post__body">
         {{ post.note }}
     </div>
+    
+    <div class="ichiran">コメント一覧</div>
+        
+        {% for comments in post.comments.all %}
+            <div class="kome">
+                <div>
+                    <div class="u-za-">
+                        <img src="{{ comments.sender.icon_url }}" class="komeico">
+                        <span>{{ comments.sender.username }}</span>
+                    </div>
+                    <div>  {{ comments.comment }}</div>  
+                </div>  
+                <div class="date">
+                    {{ comments.comment_date }}
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+        
+
+
+
 </div>
+
+
 {% endblock %}
 
 {% block footer %}{% include "main/footer.html" with has_floating_button=True %}{% endblock %}

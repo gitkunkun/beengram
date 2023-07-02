@@ -1,7 +1,9 @@
+from typing import Any
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.core import signing
+from django.db import models
 from django.db.models import Case, Count, Q, When
 from django.http import (
     HttpResponseBadRequest,
@@ -21,9 +23,10 @@ from .forms import (
     PostForm,
     ProfileEditForm,
     SearchForm,
+    CommentForm,
     SignUpForm,
 )
-from .models import Post
+from .models import Post,Comment
 
 User = get_user_model()
 
@@ -135,7 +138,31 @@ class PostDetailView(LoginRequiredMixin, DetailView):
             .get_queryset()
             .select_related("user")
         )
+    
+class CommentView(LoginRequiredMixin, CreateView, ListView):
+    model = Comment
+    form_class = CommentForm
+    success_url = reverse_lazy("home")
+    template_name = "main/comment.html"
+    context_object_name = "kome"
+    
+    def get_queryset(self):
+        queryset=(
+            Post.objects.get(pk=self.kwargs["pk"])
+        )
+        
+        return queryset
+    
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.sender = self.request.user
+        pk = self.kwargs["pk"]
+        self.object.post = Post.objects.get(id = pk)
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
+
+        
 
 class ProfileEditView(LoginRequiredMixin, UpdateView):
     template_name = "main/edit_profile.html"
@@ -273,3 +300,4 @@ class PostLikeAPIView(LoginRequiredMixin, View):
         except Post.DoesNotExist:
             result = "DoesNotExist"
         return JsonResponse({"result": result})
+

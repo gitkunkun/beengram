@@ -459,3 +459,42 @@ a.profile-counter {
     display: block;
     width: 100%;
 }
+
+.kome span{
+    display: flex;
+
+    font-size: 20px;
+    line-height: 48px;
+}
+
+.komeico {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.u-za- {
+    display: flex;
+    align-items: flex-end;
+
+}
+
+.kome {
+    margin: 10px 50px 20px 0;
+    display: flex;
+    justify-content:space-between;
+    align-items: flex-end;
+}
+
+.date{
+    color:#b8b8b8;
+}
+
+.komennto {
+    font-size: 30px;
+}
+
+.ichiran {
+    font-size: 30px;
+}
+
